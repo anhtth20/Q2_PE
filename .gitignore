@@ -34,3 +34,5 @@ project.lock.json
 
 # Publish artifacts
 wwwroot/lib/
+appsettings.json
+appsettings.*.json
