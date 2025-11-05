@@ -21,8 +21,10 @@ namespace Q2.Pages.Services
         // ====== SORT BY YEAR (GET) ======
         [BindProperty(SupportsGet = true)] public string? Dir { get; set; } = "asc";
 
-        // ====== EDIT ID (GET) ======
+        // ====== EDIT  ======
         [BindProperty(SupportsGet = true)] public int? Id { get; set; }
+        [BindProperty(SupportsGet = true)] public string? RoomSelected { get; set; }
+        [BindProperty(SupportsGet = true)] public int? EmployeeSelected { get; set; }
 
         // ====== EDIT DATA ======
         public Service? Input { get; set; } = new();
@@ -31,6 +33,7 @@ namespace Q2.Pages.Services
 
         // Dropdown options
         public List<SelectListItem> RoomOptions { get; set; } = new();
+
         public List<SelectListItem> EmployeeOptions { get; set; } = new();
 
         private async Task LoadOptionsAsync()
