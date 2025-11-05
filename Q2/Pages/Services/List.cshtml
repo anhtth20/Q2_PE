@@ -6,261 +6,254 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Services - List</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="utf-8" />
+	<title>Services - List</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
-    <div class="container my-3">
-        <main role="main" class="pb-3">
+	<div class="container my-3">
+		<main role="main" class="pb-3">
 
-            <div class="row">
-                <!-- FORM CREATE-->
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header bg-success text-white">
-                            <h5 class="mb-0">Create New Service</h5>
-                        </div>
-                        <div class="card-body">
-                            <form method="post" asp-page-handler="Create">
-                                @Html.AntiForgeryToken()
+			<div class="row">
+				<!-- FORM CREATE-->
+				<div class="col-md-6">
+					<div class="card mb-4">
+						<div class="card-header bg-success text-white">
+							<h5 class="mb-0">Create New Service</h5>
+						</div>
+						<div class="card-body">
+							<form method="post" asp-page-handler="Create">
+								@Html.AntiForgeryToken()
 
-                                <div class="mb-3">
-                                    <label class="form-label">Room *</label>
-                                    <select name="CreateRoomTitle" class="form-select" asp-items="Model.RoomOptions" required>
-                                        <option value="">-- Select room --</option>
-                                    </select>
-                                </div>
+								<div class="mb-3">
+									<label class="form-label">Room *</label>
+									<select name="CreateRoomTitle" class="form-select" asp-items="Model.RoomOptions" required>
+										<option value="">-- Select room --</option>
+									</select>
+								</div>
 
-                                <div class="mb-3">
-                                    <label class="form-label">Fee Type</label>
-                                    <input name="CreateFeeType" class="form-control" />
-                                </div>
+								<div class="mb-3">
+									<label class="form-label">Fee Type</label>
+									<input name="CreateFeeType" class="form-control" />
+								</div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Month</label>
-                                        <input name="CreateMonth" class="form-control" type="number" min="1" max="12" />
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Year</label>
-                                        <input name="CreateYear" class="form-control" type="number" />
-                                    </div>
-                                </div>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label class="form-label">Month</label>
+										<input name="CreateMonth" class="form-control" type="number" min="1" max="12" />
+									</div>
+									<div class="col-md-6 mb-3">
+										<label class="form-label">Year</label>
+										<input name="CreateYear" class="form-control" type="number" />
+									</div>
+								</div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Amount</label>
-                                        <input name="CreateAmount" class="form-control" type="number" step="0.01" />
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Payment Date</label>
-                                        <input name="CreatePaymentDate" class="form-control" type="date" />
-                                    </div>
-                                </div>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label class="form-label">Amount</label>
+										<input name="CreateAmount" class="form-control" type="number" step="0.01" />
+									</div>
+									<div class="col-md-6 mb-3">
+										<label class="form-label">Payment Date</label>
+										<input name="CreatePaymentDate" class="form-control" type="date" />
+									</div>
+								</div>
 
-                                <div class="mb-3">
-                                    <label class="form-label">Employee</label>
-                                    <select name="CreateEmployee" class="form-select" asp-items="Model.EmployeeOptions">
-                                        <option value="">-- (optional) --</option>
-                                    </select>
-                                </div>
+								<div class="mb-3">
+									<label class="form-label">Employee</label>
+									<select name="CreateEmployee" class="form-select" asp-items="Model.EmployeeOptions">
+										<option value="">-- (optional) --</option>
+									</select>
+								</div>
 
-                                <button class="btn btn-success w-100" type="submit">Create</button>
+								<button class="btn btn-success w-100" type="submit">Create</button>
 
-                                <!-- preserve filters -->
-                                <input type="hidden" name="FilterRoomTitle" value="@Model.RoomTitle" />
-                                <input type="hidden" name="FilterFeeType" value="@Model.FeeType" />
-                                <input type="hidden" name="FilterMonth" value="@Model.Month" />
-                                <input type="hidden" name="FilterYear" value="@Model.Year" />
-                                <input type="hidden" name="FilterPaid" value="@(Model.Paid)" />
-                                <input type="hidden" name="FilterDir" value="@Model.Dir" />
-                            </form>
+								<!-- preserve filters -->
+								<input type="hidden" name="FilterRoomTitle" value="@Model.RoomTitle" />
+								<input type="hidden" name="FilterFeeType" value="@Model.FeeType" />
+								<input type="hidden" name="FilterMonth" value="@Model.Month" />
+								<input type="hidden" name="FilterYear" value="@Model.Year" />
+								<input type="hidden" name="FilterPaid" value="@(Model.Paid)" />
+								<input type="hidden" name="FilterDir" value="@Model.YearDir" />
+							</form>
 
-                            @if (!ViewData.ModelState.IsValid)
-                            {
-                                <div class="text-danger mt-2">
-                                    @foreach (var kv in ViewData.ModelState)
-                                    {
-                                        foreach (var err in kv.Value.Errors)
-                                        {
-                                            <div>@err.ErrorMessage</div>
-                                        }
-                                    }
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
+							@if (!ViewData.ModelState.IsValid)
+							{
+								<div class="text-danger mt-2">
+									@foreach (var kv in ViewData.ModelState)
+									{
+										foreach (var err in kv.Value.Errors)
+										{
+											<div>@err.ErrorMessage</div>
+										}
+									}
+								</div>
+							}
+						</div>
+					</div>
+				</div>
 
-                <!-- FORM EDIT - BÊN PHẢI -->
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="mb-0">Edit Service @(Model.Input?.Id > 0 ? $"#{Model.Input.Id}" : "")</h5>
-                        </div>
-                        <div class="card-body">
-                            <form method="post" asp-page-handler="Update">
-                                @Html.AntiForgeryToken()
+				<!-- FORM EDIT  -->
+				<div class="col-md-6">
+					<div class="card mb-4">
+						<div class="card-header bg-primary text-white">
+							<h5 class="mb-0">Edit Service @(Model.Input?.Id > 0 ? $"#{Model.Input.Id}" : "")</h5>
+						</div>
+						<div class="card-body">
+							<form method="post" asp-page-handler="Update">
+								@Html.AntiForgeryToken()
 
-                                <input type="hidden" name="EditId" value="@Model.Input?.Id" />
+								<input type="hidden" name="EditId" value="@Model.Input?.Id" />
 
-                                <div class="mb-3">
-                                    <label class="form-label">Room *</label>
-                                    <select name="EditRoomTitle" class="form-select" asp-items="Model.RoomOptions" required>
-                                        <option value="">-- Select room --</option>
-                                    </select>
-                                </div>
+								<div class="mb-3">
+									<label class="form-label">Room *</label>
+									<select name="EditRoomTitle" class="form-select" asp-for="Input.RoomTitle" asp-items="Model.RoomOptions" required>
+										<option value="">-- Select room --</option>
+									</select>
+								</div>
 
-                                <div class="mb-3">
-                                    <label class="form-label">Fee Type</label>
-                                    <input name="EditFeeType" value="@Model.Input?.FeeType" class="form-control" />
-                                </div>
+								<div class="mb-3">
+									<label class="form-label">Fee Type</label>
+									<input name="EditFeeType" value="@Model.Input?.FeeType" class="form-control" />
+								</div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Month</label>
-                                        <input name="EditMonth" value="@Model.Input?.Month" class="form-control" type="number" min="1" max="12" />
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Year</label>
-                                        <input name="EditYear" value="@Model.Input?.Year" class="form-control" type="number" />
-                                    </div>
-                                </div>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label class="form-label">Month</label>
+										<input name="EditMonth" value="@Model.Input?.Month" class="form-control" type="number" min="1" max="12" />
+									</div>
+									<div class="col-md-6 mb-3">
+										<label class="form-label">Year</label>
+										<input name="EditYear" value="@Model.Input?.Year" class="form-control" type="number" />
+									</div>
+								</div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Amount</label>
-                                        <input name="EditAmount" value="@Model.Input?.Amount" class="form-control" type="number" step="0.01" />
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Payment Date</label>
-                                        <input name="EditPaymentDate" value="@(Model.Input?.PaymentDate?.ToString("yyyy-MM-dd"))" class="form-control" type="date" />
-                                    </div>
-                                </div>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label class="form-label">Amount</label>
+										<input name="EditAmount" value="@Model.Input?.Amount" class="form-control" type="number" step="0.01" />
+									</div>
+									<div class="col-md-6 mb-3">
+										<label class="form-label">Payment Date</label>
+										<input name="EditPaymentDate" value="@(Model.Input?.PaymentDate?.ToString("yyyy-MM-dd"))" class="form-control" type="date" />
+									</div>
+								</div>
 
-                                <div class="mb-3">
-                                    <label class="form-label">Employee</label>
-                                    <select name="EditEmployee" class="form-select" asp-items="Model.EmployeeOptions">
-                                        <option value="">-- (optional) --</option>
-                                    </select>
-                                </div>
+								<div class="mb-3">
+									<label class="form-label">Employee</label>
+									<select name="EditEmployee" class="form-select" asp-for="Input.Employee" asp-items="Model.EmployeeOptions">
+										<option value="">-- (optional) --</option>
+									</select>
+								</div>
 
-                                <button class="btn btn-primary w-100" type="submit" @(Model.Input?.Id > 0 ? "" : "disabled")>Update</button>
+								<button class="btn btn-primary w-100" type="submit" @(Model.Input?.Id > 0 ? "" : "disabled")>Update</button>
 
-                                <!-- preserve filters -->
-                                <input type="hidden" name="FilterRoomTitle" value="@Model.RoomTitle" />
-                                <input type="hidden" name="FilterFeeType" value="@Model.FeeType" />
-                                <input type="hidden" name="FilterMonth" value="@Model.Month" />
-                                <input type="hidden" name="FilterYear" value="@Model.Year" />
-                                <input type="hidden" name="FilterPaid" value="@(Model.Paid)" />
-                                <input type="hidden" name="FilterDir" value="@Model.Dir" />
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+								<!-- preserve filters -->
+								<input type="hidden" name="FilterRoomTitle" value="@Model.RoomTitle" />
+								<input type="hidden" name="FilterFeeType" value="@Model.FeeType" />
+								<input type="hidden" name="FilterMonth" value="@Model.Month" />
+								<input type="hidden" name="FilterYear" value="@Model.Year" />
+								<input type="hidden" name="FilterPaid" value="@(Model.Paid)" />
+								<input type="hidden" name="FilterDir" value="@Model.YearDir" />
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <!-- FILTER + SORT (GET) -->
-            <form method="get" id="fr_search" class="mb-3">
-                <div class="row g-3">
-                    <div class="col-md-2">
-                        <label class="form-label" for="in_roomTitle">Room Title</label>
-                        <input type="text" id="in_roomTitle" name="RoomTitle" value="@Model.RoomTitle" class="form-control" />
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label" for="in_feeType">Fee Type</label>
-                        <input type="text" id="in_feeType" name="FeeType" value="@Model.FeeType" class="form-control" />
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label" for="in_month">Month</label>
-                        <input type="number" id="in_month" name="Month" value="@(Model.Month?.ToString() ?? "")" class="form-control" min="1" max="12" />
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label" for="in_year">Year</label>
-                        <input type="number" id="in_year" name="Year" value="@(Model.Year?.ToString() ?? "")" class="form-control" />
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label" for="in_paid">Payment</label>
-                        <select asp-for="Dir" class="form-select">
-                            <option value="asc">Ascending</option>
-                            <option value="desc">Descending</option>
-                        </select>
+			<!-- FILTER + SORT (GET) -->
+			<form method="get" id="fr_search" class="mb-3">
+				<div class="row g-3">
+					<div class="col-md-2">
+						<label class="form-label" for="in_roomTitle">Room Title</label>
+						<input type="text" id="in_roomTitle" name="RoomTitle" value="@Model.RoomTitle" class="form-control" />
+					</div>
+					<div class="col-md-2">
+						<label class="form-label" for="in_feeType">Fee Type</label>
+						<input type="text" id="in_feeType" name="FeeType" value="@Model.FeeType" class="form-control" />
+					</div>
+				</div>
+				<div class="col-md-2">
+					<label class="form-label" for="in_paid">Payment</label>
+					<select asp-for="Paid" class="form-select">
+						<option value="true">Paid</option>
+						<option value="false">Unpaid</option>
+					</select>
 
-                    </div>
+				</div>
 
-                    <!-- SORT BY YEAR -->
-                    <div class="col-md-2">
-                        <label class="form-label">Sort by Year</label>
-                        <select asp-for="Dir" class="form-select">
-                            <option value="asc">Ascending</option>
-                            <option value="desc">Descending</option>
-                        </select>
+				<!-- SORT BY YEAR -->
+				<div class="col-md-2">
+					<label class="form-label">Sort by Year</label>
+					<select asp-for="YearDir" class="form-select">
+						<option value="asc">Ascending</option>
+						<option value="desc">Descending</option>
+					</select>
 
-                    </div>
+				</div>
 
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Filter / Search</button>
-                        <a asp-page="/Services/List" class="btn btn-secondary">Clear</a>
-                    </div>
-                </div>
-            </form>
+				<div class="col-12">
+					<button type="submit" class="btn btn-primary">Filter / Search</button>
+					<a asp-page="/Services/List" class="btn btn-secondary">Clear</a>
+				</div>
 
-            <hr class="my-4" />
+			</form>
 
-            <!-- TABLE -->
-            <table class="table table-hover align-middle">
-                <thead>
-                    <tr>
-                        <th>Room Title</th>
-                        <th>Fee Type</th>
-                        <th>Month</th>
-                        <th>Year @(Model.Dir == "asc" ? "↑" : "↓")</th>
-                        <th>Amount</th>
-                        <th>Payment Status</th>
-                        <th>Employee</th>
-                        <th style="width:180px;">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var s in Model.Results)
-                    {
-                        <tr>
-                            <td>@s.RoomTitle</td>
-                            <td>@s.FeeType</td>
-                            <td>@s.Month</td>
-                            <td>@s.Year</td>
-                            <td>@((int?)Math.Round(s.Amount ?? 0) ?? 0)</td>
-                            <td>@(s.PaymentDate.HasValue ? "Service has been paid" : "Unpaid")</td>
-                            <td>@(s.EmployeeNavigation?.Name ?? s.Employee?.ToString() ?? "N/A")</td>
-                            <td>
-                                <!-- EDIT - load data vào form -->
-                                <a href="?Id=@s.Id&RoomTitle=@Model.RoomTitle&FeeType=@Model.FeeType&Month=@Model.Month&Year=@Model.Year&Paid=@Model.Paid&Dir=@Model.Dir"
-                                   class="btn btn-sm btn-outline-primary">Edit</a>
+			<hr class="my-4" />
 
-                                <!-- DELETE (POST) -->
-                                <form method="post" asp-page-handler="Delete" class="d-inline">
-                                    @Html.AntiForgeryToken()
-                                    <input type="hidden" name="id" value="@s.Id" />
-                                    <input type="hidden" name="FilterRoomTitle" value="@Model.RoomTitle" />
-                                    <input type="hidden" name="FilterFeeType" value="@Model.FeeType" />
-                                    <input type="hidden" name="FilterMonth" value="@Model.Month" />
-                                    <input type="hidden" name="FilterYear" value="@Model.Year" />
-                                    <input type="hidden" name="FilterPaid" value="@Model.Paid" />
-                                    <input type="hidden" name="FilterDir" value="@Model.Dir" />
+			<!-- TABLE -->
+			<table class="table table-hover align-middle">
+				<thead>
+					<tr>
+						<th>Room Title</th>
+						<th>Fee Type</th>
+						<th>Month</th>
+						<th>Year @(Model.YearDir == "asc" ? "↑" : "↓")</th>
+						<th>Amount</th>
+						<th>Payment Status</th>
+						<th>Employee</th>
+						<th style="width:180px;">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var s in Model.Results)
+					{
+						<tr>
+							<td>@s.RoomTitle</td>
+							<td>@s.FeeType</td>
+							<td>@s.Month</td>
+							<td>@s.Year</td>
+							<td>@((int?)Math.Round(s.Amount ?? 0) ?? 0)</td>
+							<td>@(s.PaymentDate.HasValue ? "Service has been paid" : "Unpaid")</td>
+							<td>@(s.EmployeeNavigation?.Name ?? s.Employee?.ToString() ?? "N/A")</td>
+							<td>
+								<!-- EDIT - load data vào form -->
+								<a href="?Id=@s.Id&RoomTitle=@Model.RoomTitle&FeeType=@Model.FeeType&Month=@Model.Month&Year=@Model.Year&Paid=@Model.Paid&Dir=@Model.YearDir"
+								   class="btn btn-sm btn-outline-primary">Edit</a>
 
-                                    <button class="btn btn-sm btn-outline-danger" type="submit"
-                                            onclick="return confirm('Delete this service?')">
-                                        Delete
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+								<!-- DELETE (POST) -->
+								<form method="post" asp-page-handler="Delete" class="d-inline">
+									@Html.AntiForgeryToken()
+									<input type="hidden" name="id" value="@s.Id" />
+									<input type="hidden" name="FilterRoomTitle" value="@Model.RoomTitle" />
+									<input type="hidden" name="FilterFeeType" value="@Model.FeeType" />
+									<input type="hidden" name="FilterMonth" value="@Model.Month" />
+									<input type="hidden" name="FilterYear" value="@Model.Year" />
+									<input type="hidden" name="FilterPaid" value="@Model.Paid" />
+									<input type="hidden" name="FilterDir" value="@Model.YearDir" />
 
-        </main>
-    </div>
+									<button class="btn btn-sm btn-outline-danger" type="submit"
+											onclick="return confirm('Delete this service?')">
+										Delete
+									</button>
+								</form>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+
+		</main>
+	</div>
 </body>
 </html>

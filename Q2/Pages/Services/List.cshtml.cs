@@ -19,7 +19,7 @@ namespace Q2.Pages.Services
         [BindProperty(SupportsGet = true)] public bool? Paid { get; set; }
 
         // ====== SORT BY YEAR (GET) ======
-        [BindProperty(SupportsGet = true)] public string? Dir { get; set; } = "asc";
+        [BindProperty(SupportsGet = true)] public string? YearDir { get; set; } = "asc";
 
         // ====== EDIT  ======
         [BindProperty(SupportsGet = true)] public int? Id { get; set; }
@@ -60,11 +60,9 @@ namespace Q2.Pages.Services
                 q = q.Where(r => r.RoomTitle != null && r.RoomTitle.Contains(RoomTitle));
             if (!string.IsNullOrWhiteSpace(FeeType))
                 q = q.Where(r => r.FeeType != null && r.FeeType.Contains(FeeType));
-            if (Month.HasValue) q = q.Where(r => r.Month == Month.Value);
-            if (Year.HasValue) q = q.Where(r => r.Year == Year.Value);
             if (Paid.HasValue) q = q.Where(r => Paid.Value ? r.PaymentDate != null : r.PaymentDate == null);
 
-            bool asc = (Dir ?? "asc").Equals("asc", StringComparison.OrdinalIgnoreCase);
+            bool asc = (YearDir ?? "asc").Equals("asc", StringComparison.OrdinalIgnoreCase);
             q = asc ? q.OrderBy(x => x.Year).ThenBy(x => x.Month)
                     : q.OrderByDescending(x => x.Year).ThenByDescending(x => x.Month);
 
@@ -74,6 +72,7 @@ namespace Q2.Pages.Services
         public async Task OnGetAsync()
         {
             await LoadOptionsAsync();
+            Console.WriteLine("Id: " +  Id);
 
             Results = await BuildQuery().ToListAsync();
 
@@ -100,7 +99,6 @@ namespace Q2.Pages.Services
             bool? FilterPaid,
             string? FilterDir)
         {
-            // Validate FK & inputs
             if (string.IsNullOrWhiteSpace(CreateRoomTitle) ||
                 !await _context.Rooms.AnyAsync(r => r.Title == CreateRoomTitle))
                 ModelState.AddModelError(string.Empty, "Room không tồn tại.");
@@ -112,9 +110,8 @@ namespace Q2.Pages.Services
             if (!ModelState.IsValid)
             {
                 await LoadOptionsAsync();
-                // giữ filter
                 RoomTitle = FilterRoomTitle; FeeType = FilterFeeType; Month = FilterMonth;
-                Year = FilterYear; Paid = FilterPaid; Dir = FilterDir;
+                Year = FilterYear; Paid = FilterPaid; YearDir = FilterDir;
                 Results = await BuildQuery().ToListAsync();
                 return Page();
             }
@@ -176,7 +173,7 @@ namespace Q2.Pages.Services
             {
                 await LoadOptionsAsync();
                 RoomTitle = FilterRoomTitle; FeeType = FilterFeeType; Month = FilterMonth;
-                Year = FilterYear; Paid = FilterPaid; Dir = FilterDir;
+                Year = FilterYear; Paid = FilterPaid; YearDir = FilterDir;
                 Results = await BuildQuery().ToListAsync();
                 Input = entity; // giữ lại dữ liệu edit
                 return Page();
