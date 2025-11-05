@@ -1,0 +1,36 @@
+# Visual Studio / .NET build junk
+.vs/
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+[Tt]est[Rr]esult*/
+
+# VS user-specific
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS index/lock artifacts
+*.vsidx
+*.vssscc
+
+# NuGet
+packages/
+*.nupkg
+project.lock.json
+*.nuget.props
+*.nuget.targets
+
+# Rider/Code (nếu có)
+.idea/
+.vscode/
+
+# Others
+*.cache
+*.dbmdl
+*.jfm
+
+# Publish artifacts
+wwwroot/lib/
