@@ -208,7 +208,7 @@
 						<th>Room Title</th>
 						<th>Fee Type</th>
 						<th>Month</th>
-						<th>Year @(Model.YearDir == "asc" ? "↑" : "↓")</th>
+						<th>Year @(Model.YearDir)</th>
 						<th>Amount</th>
 						<th>Payment Status</th>
 						<th>Employee</th>
@@ -228,7 +228,7 @@
 							<td>@(s.EmployeeNavigation?.Name ?? s.Employee?.ToString() ?? "N/A")</td>
 							<td>
 								<!-- EDIT - load data vào form -->
-								<a href="?Id=@s.Id&RoomTitle=@Model.RoomTitle&FeeType=@Model.FeeType&Month=@Model.Month&Year=@Model.Year&Paid=@Model.Paid&Dir=@Model.YearDir"
+								<a href="?Id=@s.Id&RoomTitle=@Model.RoomTitle&FeeType=@Model.FeeType&Month=@Model.Month&Year=@Model.Year&Paid=@Model.Paid&YearDir=@Model.YearDir"
 								   class="btn btn-sm btn-outline-primary">Edit</a>
 
 								<!-- DELETE (POST) -->
